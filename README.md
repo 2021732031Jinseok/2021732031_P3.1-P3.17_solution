@@ -55,7 +55,8 @@ A =
 \end{bmatrix}
 $$
 
-<img width="2346" height="1000" alt="image" src="https://github.com/user-attachments/assets/18cc8825-7b2f-4e1a-80c4-f987a3f3ff08" />
+<img width="782" height="636" alt="image" src="https://github.com/user-attachments/assets/338a1163-7d8e-461a-ab61-28ab0e051117" />
+
 
 ## 상태방정식 유도 (RLC 회로)
 
@@ -391,11 +392,11 @@ $$
 \Phi(t) =
 \begin{bmatrix}
 3e^{-2t} - 3e^{-4t} + e^{-6t} &
-5e^{-2t} - 2e^{-4t} + \dfrac{3}{4}e^{-6t} &
+\dfrac{5}{4}e^{-2t} - 2e^{-4t} + \dfrac{3}{4}e^{-6t} &
 \dfrac{1}{8}e^{-2t} - \dfrac{1}{4}e^{-4t} + \dfrac{1}{8}e^{-6t} \\
 -6e^{-2t} + 12e^{-4t} - 6e^{-6t} &
--\dfrac{5}{2}e^{-2t} + 8e^{-4t} + \dfrac{9}{2}e^{-6t} &
--\dfrac{1}{4}e^{-2t} + e^{-4t} + \dfrac{3}{4}e^{-6t} \\
+-\dfrac{5}{2}e^{-2t} + 8e^{-4t} - \dfrac{9}{2}e^{-6t} &
+-\dfrac{1}{4}e^{-2t} + e^{-4t} - \dfrac{3}{4}e^{-6t} \\
 12e^{-2t} - 48e^{-4t} + 36e^{-6t} &
 5e^{-2t} - 32e^{-4t} + 27e^{-6t} &
 \dfrac{1}{2}e^{-2t} - 4e^{-4t} + \dfrac{9}{2}e^{-6t}

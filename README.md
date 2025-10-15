@@ -1,1 +1,513 @@
-# 2021732031_P3.1-P3.17_solution
+# 2021732031 정진석 제어공학1 3장과제
+## P3.1
+<img width="738" height="354" alt="image" src="https://github.com/user-attachments/assets/aebb3397-9e93-43a7-a748-2c421630da73" />
+
+시스템 구성:  
+질량 \( M \), 감쇠계수 \( b \), 스프링상수 \( k \), 입력 힘 \( u(t) = F(t) \), 출력 변위 \( y(t) \)
+
+---
+
+## (a) 
+
+$$
+x_1(t) = y(t), \quad x_2(t) = \frac{dy(t)}{dt}
+$$
+
+출력: F(t)=u(t)
+
+---
+
+## (b) 상태변수 설정
+$$
+\begin{aligned}
+\dot{x}_1(t) &= x_2(t) \\
+\dot{x}_2(t) &= -\frac{k}{M}x_1(t) - \frac{b}{M}x_2(t) + \frac{1}{M}u(t)
+\end{aligned}
+$$
+
+## (c) 상태방정식 (벡터형)
+
+$$
+\dot{\mathbf{x}} =
+\begin{bmatrix}
+0 & 1 \\
+-\tfrac{k}{M} & -\tfrac{b}{M}
+\end{bmatrix} \mathbf{x} +
+\begin{bmatrix} 0 \\
+\tfrac{1}{M} \end{bmatrix} u, \quad
+y = \begin{bmatrix} 1 & 0 \end{bmatrix} \mathbf{x}
+$$
+
+---
+
+## P3.3
+
+그림 P3.3과 같은 RLC 회로가 주어졌다. 상태변수  
+$(x_1(t) = i_L(t) ), ( x_2(t) = v_C(t))$ 로 설정하고 상태미분방정식을 구하라.
+
+부분해답:
+
+$$
+A =
+\begin{bmatrix}
+0 & \dfrac{1}{L} \\
+-\dfrac{1}{C} & -\dfrac{1}{RC}
+\end{bmatrix}
+$$
+
+<img width="2346" height="1000" alt="image" src="https://github.com/user-attachments/assets/18cc8825-7b2f-4e1a-80c4-f987a3f3ff08" />
+
+## 상태방정식 유도 (RLC 회로)
+
+### 1) 상태변수 정의
+
+$$
+x_1(t) = i_L(t), \quad x_2(t) = v_C(t)
+$$
+
+---
+
+### 2) 1 Node에서 KCL 적용
+
+$$
+x_1(t) = \frac{v_2(t) - x_2(t)}{R} - C \frac{d}{dt} x_2(t)
+$$
+
+---
+
+### 3) 2 Loop에서 KVL 적용
+
+$$
+v_1(t) = L \frac{d}{dt} x_1(t) + v_2(t) - x_2(t)
+$$
+
+---
+
+### 4) 상태변수로 표현한 1차 미분방정식
+
+첫 번째 방정식:
+
+$$
+\frac{d}{dt} x_1(t) = \frac{1}{L} x_2(t) + \frac{1}{L} v_1(t) - \frac{1}{L} v_2(t)
+$$
+
+두 번째 방정식:
+
+$$
+\frac{d}{dt} x_2(t) = -\frac{1}{C} x_1(t) - \frac{1}{RC} x_2(t) + \frac{1}{RC} v_2(t)
+$$
+
+---
+
+### 5) 상태미분방정식 (행렬형태)
+
+$$
+\dot{X}(t) = A X(t) + B V(t)
+$$
+
+$$
+\dot{X}(t) =
+\begin{bmatrix}
+0 & \dfrac{1}{L} \\
+-\dfrac{1}{C} & -\dfrac{1}{RC}
+\end{bmatrix}
+X(t)
++
+\begin{bmatrix}
+\dfrac{1}{L} & -\dfrac{1}{L} \\
+0 & \dfrac{1}{RC}
+\end{bmatrix}
+V(t) \\
+y(t) = 
+\begin{bmatrix}
+0 & -1
+\end{bmatrix} x(t) +
+\begin{bmatrix}
+0 & 1
+\end{bmatrix} V(t)
+$$
+
+---
+
+## P3.5
+
+그림 P3.5에 폐루프 제어시스템이 주어져 있다.  
+(a) 폐루프 전달함수 $T(s) = \dfrac{Y(s)}{R(s)}$를 구하라.  
+(b) 상태변수 모델을 구하고 위상변수형 블록선도를 작성하라.
+
+<img width="2048" height="506" alt="image" src="https://github.com/user-attachments/assets/89515872-42f4-400c-bf45-513fae7bbcd2" />
+
+### (a) 폐루프 전달함수 T(s) 구하기
+
+$$
+V_1(s)=(R(s)-Y(s))\frac{S+2}{S+8} \\
+V(s)=\frac{V(s)}{s}=\frac{V_1(s)}{s(s-3)}=\frac{s+2}{s(s-3)(S+8)}(R(s)-Y(s)) \\
+Y(s)(\frac{s(s-3)(s+8)+S+2}{s(s-3)((s+8))})=\frac{s+2}{s(s-3)((s+8))}R(s) \\
+T(s)=\frac{Y(s)}{R(s)}=\frac{s + 2}{s^3 + 5s^2 - 23s + 2}
+$$
+
+---
+
+
+### (b) 상태변수 모델 유도
+
+우선 전달함수를 다음과 같이 쓴다:
+
+$$
+T(s) = \frac{(s + 2) Z(s)}{(s^3 + 5s^2 - 23s + 2)Z(s)}
+$$
+
+즉 
+
+$$Y(s)=sZ(s)+2Z(s)$$
+
+$$R(s)=s^3Z(s)+5s^2Z(s)-23sZ(s)+2Z(s)$$
+
+이를 시간영역으로 역변환하면:
+
+$$
+y(t)= \dot{z}(t) + 2 z(t) 
+$$
+
+$$
+r(t)=\dddot{z}(t) + 5\ddot{z}(t) - 23\dot{z}(t) + 2 z(t) 
+$$
+
+상태변수를 다음과 같이 정의한다:
+
+$$
+x_1(t) = z(t), \quad x_2(t) = \dot{z}(t), \quad x_3(t) = \ddot{z}(t)
+$$
+
+이를 이용하면 상태방정식은:
+
+$$
+\begin{aligned}
+\dot{x}_1(t) &= x_2(t) \\
+\dot{x}_2(t) &= x_3(t) \\
+\dot{x}_3(t) &= -5x_3(t) + 23x_2(t) - 2x_1(t) + u(t)
+\end{aligned}
+$$
+
+출력 방정식은 다음과 같다:
+
+$$
+y(t) = 2x_1(t) + x_2(t)
+$$
+
+---
+
+### (c) 상태방정식 (행렬형태)
+
+$$
+\dot{X}(t) =
+\begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+-2 & 23 & -5
+\end{bmatrix}
+X(t)
++
+\begin{bmatrix}
+0 \\
+0 \\
+1
+\end{bmatrix}
+u(t)
+$$
+
+출력방정식:
+
+$$
+y(t) =
+\begin{bmatrix}
+2 & 1 & 0
+\end{bmatrix}
+X(t)
+$$
+
+---
+
+## P3.12
+
+전달함수가
+
+$$
+\frac{Y(s)}{R(s)} = T(s) = \frac{8(s + 5)}{s^3 + 12s^2 + 44s + 48}
+$$
+
+인 시스템에서  
+
+(a) 상태공간모델을 구하라.  
+(b) 상태천이행렬 $( \Phi(t) )$를 구하라.
+
+---
+
+### (a) 전달함수
+
+주어진 전달함수는 다음과 같다:
+
+$$
+T(s) =\frac{Y(s)}{R(s)}= \frac{8(s + 5)Z(s)}{(s^3 + 12s^2 + 44s + 48)Z(s)}
+$$
+
+따라서
+
+$$
+Y(s) = 8 (s + 5) Z(s) = 8s Z(s) + 40 Z(s)
+$$
+
+또한 입력 \( R(s) \)는
+
+$$
+R(s) = (s^3 + 12s^2 + 44s + 48) Z(s)=s^3Z(s)+12s^2Z(s)+44sZ(s)+48Z(s)
+$$
+
+라플라스 역변환을 적용하면:
+
+$$
+y(t) = 8 \dot{z}(t) + 40 z(t)
+$$
+
+$$
+r(t) = \dddot{z}(t) + 12 \ddot{z}(t) + 44 \dot{z}(t) + 48 z(t)
+$$
+
+---
+
+### (a-ii) 상태변수 정의
+
+$$
+x_1(t) = z(t), \quad x_2(t) = \dot{z}(t), \quad x_3(t) = \ddot{z}(t)
+$$
+
+따라서,
+
+$$
+\dot{x}_1(t) = x_2(t)
+$$
+
+$$
+\dot{x}_2(t) = x_3(t)
+$$
+
+$$
+\dot{x}_3(t) = -48 x_1(t) - 44 x_2(t) - 12 x_3(t) + r(t)
+$$
+
+출력방정식은 다음과 같다:
+
+$$
+y(t) = 40 x_1(t) + 8 x_2(t)
+$$
+
+---
+
+### (a-iii) 상태방정식 행렬형태
+
+$$
+\dot{X}(t) = A X(t) + B R(t)
+$$
+
+$$
+Y(t) = C X(t) + D R(t)
+$$
+
+여기서,
+
+$$
+A =
+\begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+-48 & -44 & -12
+\end{bmatrix},
+\quad
+B =
+\begin{bmatrix}
+0 \\
+0 \\
+1
+\end{bmatrix},
+\quad
+C =
+\begin{bmatrix}
+40 & 8 & 0
+\end{bmatrix},
+\quad
+D = [0]
+$$
+
+---
+
+### (b) 상태천이행렬 $( \Phi(s) )$
+
+$$
+sX(s)=AX(s)+BU(s) \\
+X(s)=(sI - A)^{-1}BU(s) \\
+\Phi(s) = (sI - A)^{-1}
+$$
+
+$$
+sI - A =
+\begin{bmatrix}
+s & -1 & 0 \\
+0 & s & -1 \\
+48 & 44 & s + 12
+\end{bmatrix}
+$$
+
+행렬식은 다음과 같다:
+
+$$
+|sI - A| = s^3 + 12 s^2 + 44 s + 48
+$$
+
+여기서 adjoint를 구하면,
+
+$$
+\text{adj}(sI - A) =
+\begin{bmatrix}
+s^2 + 12s + 44 & s + 12 & 1 \\
+-48 & s^2 & s \\
+-48 & -48 & s^2
+\end{bmatrix}
+$$
+
+따라서 상태천이행렬은 다음과 같다:
+
+$$
+\Phi(s) = \frac{1}{s^3 + 12 s^2 + 44 s + 48}
+\begin{bmatrix}
+s^2 + 12s + 44 & s + 12 & 1 \\
+-48 & s^2 & s \\
+-48 & -48 & s^2
+\end{bmatrix}
+$$
+
+MATLAB을 사용하여 라플라스 역변환을 진행
+
+$$
+\Phi(t) =
+\begin{bmatrix}
+3e^{-2t} - 3e^{-4t} + e^{-6t} &
+5e^{-2t} - 2e^{-4t} + \dfrac{3}{4}e^{-6t} &
+\dfrac{1}{8}e^{-2t} - \dfrac{1}{4}e^{-4t} + \dfrac{1}{8}e^{-6t} \\
+-6e^{-2t} + 12e^{-4t} - 6e^{-6t} &
+-\dfrac{5}{2}e^{-2t} + 8e^{-4t} + \dfrac{9}{2}e^{-6t} &
+-\dfrac{1}{4}e^{-2t} + e^{-4t} + \dfrac{3}{4}e^{-6t} \\
+12e^{-2t} - 48e^{-4t} + 36e^{-6t} &
+5e^{-2t} - 32e^{-4t} + 27e^{-6t} &
+\dfrac{1}{2}e^{-2t} - 4e^{-4t} + \dfrac{9}{2}e^{-6t}
+\end{bmatrix}
+$$
+
+---
+
+## P3.17
+
+다음과 같은 상태변수 방정식으로 표현된 시스템이 있다.
+
+$$
+\dot{X}(t) =
+\begin{bmatrix}
+1 & 1 & -1 \\
+4 & 3 & 0 \\
+-2 & 1 & 10
+\end{bmatrix} X(t) +
+\begin{bmatrix}
+0 \\
+0 \\
+4
+\end{bmatrix} u(t)
+$$
+
+$$
+y(t) =
+\begin{bmatrix}
+1 & 0 & 0
+\end{bmatrix} X(t)
+$$
+
+$$
+G(s) = \frac{Y(s)}{U(s)} \text{ 를 구하라.}
+$$
+
+---
+
+
+$$
+sX(s)=AX(s)+BU(s) \\
+=> X(s)=(sI-A)^{-1}BU(s) \\
+Y(s)=CX(s) => Y(s)=C\Phi(s)BU(s)
+$$
+
+이때 $\Phi(s)=(sI-A)^{-1}=\frac{\text{adj}(sI - A)}{|sI - A|}$
+
+$$
+sI - A =
+\begin{bmatrix}
+s - 1 & -1 & 1 \\
+-4 & s - 3 & 0 \\
+2 & -1 & s - 10
+\end{bmatrix}
+$$
+
+$$
+|sI - A| = s^3 - 14s^2 + 37s + 20
+$$
+
+$\text{adj}(sI - A)$를 구해보면
+
+$$
+\mathrm{adj}(sI - A) =
+\begin{bmatrix}
+s^2 - 13s + 30 & 4s - 40 & -2s + 10 \\
+s - 11 & s^2 - 11s + 8 & s - 3 \\
+-s + 3 & -4 & s^2 - 4s - 1
+\end{bmatrix}^T
+=\begin{bmatrix}
+s^2 - 13s + 30 & s - 11 & -s + 3 \\
+4s - 40 & s^2 - 11s + 8 & -4 \\
+-2s + 10 & s - 3 & s^2 - 4s - 1
+\end{bmatrix}
+$$
+
+따라서 $(sI - A)^{-1}$ 은 다음과 같다:
+
+$$
+(sI - A)^{-1} =\Phi(s)=
+\frac{1}{s^3 - 14s^2 + 37s + 20}
+\begin{bmatrix}
+s^2 - 13s + 30 & s - 11 & -s + 3 \\
+4s - 40 & s^2 - 11s + 8 & -4 \\
+-2s + 10 & s - 3 & s^2 - 4s - 1
+\end{bmatrix}
+$$
+
+---
+
+
+전달함수는 다음과 같다:
+
+$$
+G(s) = C \Phi(s) B
+$$
+
+여기서  
+
+$$
+C = \begin{bmatrix} 1 & 0 & 0 \end{bmatrix} \\
+B = \begin{bmatrix}
+0 \\ 
+0 \\ 
+4 
+\end{bmatrix}
+$$
+
+이를 대입하여 계산하면:
+
+$$
+G(s) = \frac{-4s + 12}{s^3 - 14s^2 + 37s + 20}
+$$
+
